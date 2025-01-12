@@ -1,68 +1,345 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+/* all */
+body{
+  padding:0;
   margin: 0;
+  background-color: #FB9EC6;
+}
+/* navbar */
+.Navar{
+  height: 50rem;
+  width: 23vw;
+  margin: 5px;
+  border-radius: 20px;
+  position: fixed;
+}
+/* navbar logo */
+.Dark2{
+  background-color: white;
+}
+.Dark1{
+  background-color: #FB9EC6;
+}
+.logo{
+  padding-bottom: 10px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom: 2px solid grey;
+}
+.logo img{
+  height: 50px;
+  border-radius: 100%;
+  padding: 0;
+}
+.logo span{
+  font-size: 10px;
+}
+/* navbar menu */
+.menu li{
+  list-style: none;
+  padding: 10px;
+  border-bottom: 2px solid grey;
+
+}
+.menuLink{
+  text-decoration: none;
+  color: black ;
+
+}
+.menu li i{
+  padding: 10px;
+  font-size: 20px;
+
+}
+/* navbaruser */
+.user{
+  list-style: none;
+  position: static;
+  border-bottom: 2px solid grey;
+}
+.user p i{
+  padding: 10px;
+  font-size: 20px;
+}
+/* userlist */
+.userList{
+  position: absolute;
+  left: 11rem;
+  bottom: 20rem;
+  width: 10rem;
+  display: none;
+  flex-direction: column;
+  border: 2px solid grey;
+  border-radius: 1rem;
+}
+.userList p{
+  border-top-left-radius: 1rem ;
+  border-top-right-radius: 1rem ;
+  padding: 0.5px;
+}
+.acc{
+  padding: 2%;
+  border-radius: 2rem;
+  text-decoration: none;
+  color: black;
+}
+.userList p i{
+  padding: 5px;
+}
+.form-check{
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+/* home body search */
+.top{
+  height: 16%;
+  width: 100vw;
+  border-bottom:2px solid white;
+  position: fixed;
+  z-index: 1;
+}
+.search{
+  margin-left: 20%;
+  margin-top: 2%;
+  margin-bottom: 1%;
+  height: 3rem;
+  width: 20rem;
+  border: none;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+}
+.searchButton{
+  margin-top: 2%;
+  margin-bottom: 2%;
+  height: 3rem;
+  border: none;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-left:  2px solid gray;
+  padding: 9px;
+} 
+.searchButton i{
+  font-size: 20px;
+} 
+/* main body of home */
+.mainBody{
+  position: static;
+  margin-top: 10%;
+} 
+.homeHeading{
+  color: white;
+  position: relative;
+  top: 10rem;
+} 
+.card{
+  position: relative;
+  top: 10rem;
+  width: 18rem;
+  margin-left: 2rem;
+  margin-top: 2rem;
+  display: inline-block;
+}
+/* Create page */
+.createForm{
+  height: 90vh;
+  border-radius: 5%;
+}
+.createHeading{
+  border-bottom: 2px solid grey;
+}
+
+.Cform label{
+  margin:2%;
+}
+.Cform input{
+  background-color: rgb(255, 243, 245);
+  border-radius: 100px;
+  padding: 1%;
+  width: 60%;
+}
+.Cform textarea{
+  background-color: rgb(255, 243, 245);
+  border-radius: 20px;
+  padding: 1%;
+  width: 60%;
+  display: block;
+}
+.Cform button{
+  border: 2px solid black;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+/* show page data */
+.showdata{
+  border-radius: 5%;
+}
+.dataHeading{
+  border-bottom: 2px solid grey;
+}
+.showdata img{
+  height: 20rem;
+  width: 98%;
+}
+.databtn{
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: space-around;
+  margin: 3%;
+}
+.datadetails{
+  display: flex;
+  justify-content: space-evenly;
+}
+.datadetails i{
+  font-size: 1.2rem;
+  margin: 3px;
+}
+/* review */
+.reviewform{
+  border-radius: 1rem;
+}
+.reviewform h2{
+  margin: 3%;
+  border-bottom: 2px solid grey;
+}
+.reviewform form{
+  margin: 3%;
+}
+.reviewform textarea{
+  background-color:rgb(255, 243, 245);
+  padding: 5px;
+  width: 70%;
+  border-radius: 1rem;
+}
+.reviewsubmit{
+  display: block;
+}
+.review{
+  padding: 2rem;
+}
+.review span{
+  font-weight: 600;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* edit page */
+.editForm{
+  background-color: white;
+  height: 90vh;
+  border-radius: 5%;
 }
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+.editHeading{
+  background-color: white;
+  border-bottom: 2px solid grey;
 }
-button:hover {
-  border-color: #646cff;
+.Eform{
+  background-color: white;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.Eform label{
+  background-color: white;
+  margin:2%;
 }
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.Eform input{
+  background-color: rgb(255, 243, 245);
+  border-radius: 100px;
+  padding: 1%;
+  width: 60%;
+}
+.Eform textarea{
+  background-color: rgb(255, 243, 245);
+  border-radius: 20px;
+  padding: 1%;
+  width: 60%;
+  display: block;
+}
+.EformInputdata{
+  background-color: white;
+}
+/* sign up */
+.signuppage{
+  background-color: white;
+  border-radius: 1rem;
+}
+.signupform{
+  background-color: white;
+}
+.suhead{
+  background-color: white;
+  border-bottom:2px solid grey ;
+}
+.sudata{
+  background-color: white;
+}
+.sudata label{
+  background-color: white;
+  display: block;
+  padding-bottom: 2px;
+}
+.sudata input{
+  background-color: rgb(255, 243, 245);
+  display: block;
+  padding: 3px;
+  width: 100%;
+  height: 2rem;
+  border-radius: 50px;
+}
+.linktologin{
+  background-color: white;
+}
+.linktologin Link{
+  background-color: white;
+}
+/* login page */
+.loginpage{
+  background-color: white;
+  border-radius: 1rem;
+}
+.loginform{
+  background-color: white;
+}
+.lihead{
+  background-color: white;
+  border-bottom:2px solid grey ;
+}
+.lidata{
+  background-color: white;
+}
+.lidata label{
+  background-color: white;
+  display: block;
+  padding-bottom: 2px;
+}
+.lidata input{
+  background-color: rgb(255, 243, 245);
+  display: block;
+  padding: 3px;
+  width: 100%;
+  height: 2rem;
+  border-radius: 50px;
+}
+.account{
+  background-color: white;
+  border-radius: 2rem;
+}
+.account h1{
+  background-color: white;
+  margin: 4px;
+}
+.account p b{
+  background-color: white;
+}
+.account p{
+  background-color: white;
+}
+.account div{
+  background-color: white;
+  border-bottom-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+.dark-1{
+  background-color: #10171e;
+  color: white;
+}
+.dark-2{
+  background-color: #1c2938;
+  color: white;
 }
