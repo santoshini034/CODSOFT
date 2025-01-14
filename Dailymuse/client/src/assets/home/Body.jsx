@@ -1,94 +1,42 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Body = () => {
+    const [alldata, setAlldata] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/home").then((res) => {
+            let data = res.data;
+            setAlldata(data);
+        })
+    },[])
+
     const navigate  = useNavigate();
 
-    const toshow = () => {
-        navigate("/show");
+    const toshow = async (id) => {
+        navigate('/show', { state: id })
     }
+
+
+
   return (
     <div>
         <h1 className='homeHeading'>All about today!</h1>
-        <div className="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 offset-lg-1">
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div className='card Dark2' onClick={toshow}>
-            <img src="photos.avif" className='card-img-top Dark2' alt="..."/>
-            <hr />
-            <div className='card-body Dark2'>
-                <p className='card-text Dark2'>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-    </div>
+        {
+            alldata.map(data => {
+                return(
+                    <div className='card Dark2' onClick={() => {toshow(data._id)}}>
+                    <img src= {data.image}  className='card-img-top Dark2' alt="..."/>
+                    <hr />
+                    <div className='card-body Dark2'>
+                        <p className='card-text Dark2'><b>{data.heading}</b></p>
+                    </div>
+                </div>
+                )
+            })
+        }
     </div>
   )
 }

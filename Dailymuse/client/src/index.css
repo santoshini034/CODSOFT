@@ -140,6 +140,9 @@ body{
   margin-top: 2rem;
   display: inline-block;
 }
+.card-img-top{
+  height: 15rem;
+}
 /* Create page */
 .createForm{
   height: 90vh;
