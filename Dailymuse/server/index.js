@@ -35,3 +35,23 @@ app.get("/show/:id",async(req,res) => {
     let iddata = await data.findById(id);
     res.json(iddata);
 });
+
+app.get("/editpage/:id",async(req,res) => {
+    let {id} = req.params;
+    let da = await data.findById(id);
+    res.json(da);
+});
+
+app.post("/adddata",async(req,res) => {
+    let {dat} = req.body; 
+    console.log(dat);
+    let savedata = new data(dat);
+    await savedata.save()
+    res.json("success");
+})
+app.post("/editdata/:id",async(req,res) => {
+    let {id} = req.params;
+    let {dat} = req.body; 
+    await data.findByIdAndUpdate(id, dat);
+    res.json("success");
+})

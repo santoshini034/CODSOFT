@@ -20,7 +20,6 @@ const Body = () => {
     }
 
 
-
   return (
     <div>
         <h1 className='homeHeading'>All about today!</h1>

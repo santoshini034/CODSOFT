@@ -2,18 +2,23 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Data = () => {
     const [da, setData] = useState({});
     const location = useLocation(); 
     const id = location.state;
+    const navigate = useNavigate();
     useEffect(() => {
         axios.get(`http://localhost:8080/show/${id}`).then((res) => {
             console.log(res.data);
             setData(res.data);
         })
     },[])
+    const navi = (id) => {
+        navigate('/edit', { state: id });
+    } 
 
   return (
     <div className="container mt-3">
@@ -33,7 +38,7 @@ const Data = () => {
                     {da.information}
                 </p>
                 <div className="databtn Dark2">
-                    <Link to='/edit' className='btn btn-success' >Edit</Link>
+                    <a onClick={() => navi(da._id)} className='btn btn-success' >Edit</a>
                     <button className='btn btn-danger'>Delete</button>
                 </div>
             </div>
