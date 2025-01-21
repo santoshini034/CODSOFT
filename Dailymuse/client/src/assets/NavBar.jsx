@@ -1,11 +1,15 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const NavBar = () => {
-
+const NavBar = (token) => {
+    //declarations
     const [show, setShow] = useState(true);
+    const [tok, setTok] = useState(token);
     const [dark, setDark] = useState(false);
+    const navigate  = useNavigate();
+
+    //it will be show after a user click user button in navbar
     const userli = () => {
         const list = document.querySelector(".userList");
             setShow(!show);
@@ -15,6 +19,8 @@ const NavBar = () => {
                 list.style.display = "none";
             }
         }
+
+    //Darkmode
     const darkmode = () => {
         const darkElement1 = document.querySelectorAll('.Dark1');
         const darkElement2 = document.querySelectorAll('.Dark2');
@@ -24,10 +30,17 @@ const NavBar = () => {
             Array.from(darkElement2).map(darkEl2 => darkEl2.classList.toggle('dark-2')
             );
         }
+
+    //logic for button in menu class
+    const navi = () => {
+        const t = tok.token;
+        navigate('/create',{state: t});
+    }
     
     
 
   return (
+    //navbar heading
     <div className="Navar Dark2">
         <Link to="/" className='menuLink Dark2'>
             <div className="logo Dark2">
@@ -35,11 +48,12 @@ const NavBar = () => {
                 <span className='Dark2'>A sight to the world</span>
             </div>  
         </Link>
+        {/* menu bar */}
         <div className="menu Dark2">
             <ul className='Dark2'>
-                <Link to="/create" className='menuLink Dark2'>
+                <a onClick={navi} className='menuLink Dark2'>
                     <li className='Dark2'><i class="fa-solid fa-circle-plus Dark2"></i>Create</li>
-                </Link>
+                </a>
                 <Link to="/liked" className='menuLink Dark2'>
                     <li><i className="fa-solid fa-thumbs-up Dark2"></i>liked</li>
                 </Link>
@@ -51,7 +65,9 @@ const NavBar = () => {
                 </Link>
             </ul>
         </div>
+        {/* usertab */}
         <div className="user Dark2">
+            {/* hidden part of user */}
         <div className="userList Dark2">
             <Link to='/account' className='acc Dark2'><p className='Dark2'><i class="fa-solid fa-user Dark2"></i>Account</p></Link>
             <div className="form-check form-switch Dark2">

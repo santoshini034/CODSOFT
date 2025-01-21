@@ -5,10 +5,12 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 
-const Form = () => {
+const Form = (user) => {
   const navigate  = useNavigate()
-  const location = useLocation(); 
-  const id = location.state;
+  const id = user.user.id;
+  const token = user.user.token;
+  console.log(id);
+  console.log(token);
 
   const [image,setImage] = useState();
   const [dtype,setType] = useState();
@@ -32,7 +34,7 @@ const Form = () => {
   }else{
       axios.post(`http://localhost:8080/editdata/${id}`, { dat : {image, dtype, heading,information}}).then((res) => {
         if(res.data == "success"){
-          navigate("/show", {state: id});
+        navigate('/show', { state: {user} })
         }
       })
   }

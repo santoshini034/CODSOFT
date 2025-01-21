@@ -3,9 +3,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Body = () => {
+const Body = (token) => {
     const [alldata, setAlldata] = useState([]);
-
+    // data for page
     useEffect(() => {
         axios.get("http://localhost:8080/home").then((res) => {
             let data = res.data;
@@ -14,9 +14,10 @@ const Body = () => {
     },[])
 
     const navigate  = useNavigate();
-
+    // navigate to show complete details after showing card
     const toshow = async (id) => {
-        navigate('/show', { state: id })
+        const user = { id, token };
+        navigate('/show', { state: {user} })
     }
 
 

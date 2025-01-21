@@ -3,22 +3,33 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const Form = () => {
+const Form = (token) => {
+  // declaration
   const [image,setImage] = useState();
   const [dtype,setType] = useState();
   const [heading,setHeading] = useState();
   const [information,setInformation] = useState();
-
   const navigate = useNavigate();
+  const to = token.token;
 
   const addData = (e) => {
     e.preventDefault();
     if(image == "" || dtype == "" || heading == "" || information == "" ){
       alert("Please! Enter valid credentials");
   }else{
-      axios.post('http://localhost:8080/adddata', { dat : {image, dtype, heading,information}}).then((res) => {
+    if(!token){
+      navigate('/login');
+      return;
+  }
+
+      axios.post('http://localhost:8080/adddata', { dat : {image, dtype, heading,information}},{
+        headers: { 'Authorization': `Bearer ${to}` }
+      }).then((res) => {
+        console.log(res);
         if(res.data == "success"){
           navigate("/");
+        }else{
+          navigate('/login');
         }
       })
   }

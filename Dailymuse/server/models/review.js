@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
-    date: String,
+    date: {
+        type: Date,
+        default: new Date(),
+      },
     rev: String
 });
 
