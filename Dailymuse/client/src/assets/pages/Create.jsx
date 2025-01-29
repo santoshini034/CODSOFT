@@ -51,7 +51,7 @@ const Create = () => {
         if(heading == "" || image == "" || dtype =="" || information == ""){
           handlerror("Enter valid credentials")
         } else{
-            axios.post('http://localhost:8080/addpost', {auth, heading, image, dtype,information}).then((res) => {
+            axios.post('https://codsoft-1-mxid.onrender.com/addpost', {auth, heading, image, dtype,information}).then((res) => {
                 if(!res.data.success){
                   handlerror(res.data.message)
                     setTimeout(() => {
