@@ -38,7 +38,7 @@ const Show = () => {
 
     //useeffect
     useEffect(() => {
-        axios.get(`http://localhost:8080/show/${id}`).then((res) => {
+        axios.get(`https://codsoft-1-mxid.onrender.com/show/${id}`).then((res) => {
             if (res.data.success == true) {
               setData(res.data.data);
               setSreview(res.data.data.review);
@@ -66,7 +66,7 @@ const Show = () => {
         if(review == ""){
           handlerror("Enter valid credentials")
         } else{
-            axios.post(`http://localhost:8080/review/${id}`, {auth, review}).then((res) => {
+            axios.post(`https://codsoft-1-mxid.onrender.com/review/${id}`, {auth, review}).then((res) => {
               if (res.data.success == true) {
                 setSreview(res.data.review);
               } else {
@@ -92,7 +92,7 @@ const Show = () => {
           },4000)
          }
 
-        axios.post(`http://localhost:8080/follower`, {auth,user}).then((res) => {
+        axios.post(`https://codsoft-1-mxid.onrender.com/follower`, {auth,user}).then((res) => {
           if (res.data.success == true) {
             console.log(res)
             setUser(res.data.data2);
