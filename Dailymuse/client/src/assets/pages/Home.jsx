@@ -36,7 +36,7 @@ const handlerror = (message) => toast.error(message, {
 
   //useeffect
   useEffect(() => {
-    axios.post("http://localhost:8080/home").then((res) => {
+    axios.post("https://codsoft-1-mxid.onrender.com/home").then((res) => {
       if (res.data.success == true) {
         setData(res.data.posts);
         setUser(res.data.user);
@@ -48,7 +48,7 @@ const handlerror = (message) => toast.error(message, {
 
   //categories
   const cate = (category) => {
-    axios.post("http://localhost:8080/category",{category}).then((res) => {
+    axios.post("https://codsoft-1-mxid.onrender.com/category",{category}).then((res) => {
       if (res.data.success == true) {
         console.log(res.data.posts);
         setData(res.data.posts);
