@@ -39,7 +39,7 @@ const Create = () => {
     const handlesubmit = (e) => {
         e.preventDefault();
         console.log(dtype)
-        let auth = localStorage.getItem("authToken");
+        let auth = localStorage.getItem('authToken');
 
         if(!auth){
             handlerror("Login to create post")
@@ -54,11 +54,9 @@ const Create = () => {
             axios.post('http://localhost:8080/addpost', {auth, heading, image, dtype,information}).then((res) => {
                 if(!res.data.success){
                   handlerror(res.data.message)
-                  if(!(res.data.message == "some error occur, please try again")){
                     setTimeout(() => {
                       return navigate('/login');
                     },4000)
-                  }
                 }else{
                   handlesuccess(res.data.message)
                   setTimeout(() => {

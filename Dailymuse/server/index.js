@@ -50,7 +50,7 @@ const userVerification = async(req, res, next) => {
 }
 
 //start port
-app.listen("8080",() => {
+app.listen(PORT,() => {
     console.log("app is listerning");
 })
 
@@ -83,21 +83,25 @@ app.post("/signin", async(req, res) => {
 
 //login
 app.post("/login",async(req, res) => {
-    let {email, password} = req.body;
-    let umail = await User.findOne({email});
-    if(!umail){
-        return res.json({status: false, message:"user not found"});
+    try {
+        let {email, password} = req.body;
+        let umail = await User.findOne({email});
+        if(!umail){
+            return res.json({status: false, message:"user not found"});
+        }
+        const auth = await bcrypt.compare(password,umail.password);
+        if(!auth){
+            return res.json({status: false, message:"Password is incorrect"});
+        }
+        const token = createSecretToken(umail._id);
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true
+        });
+        res.json({success: true ,message : "User is logged in", token});
+    } catch (error) {
+        res.json({success: false, message: "error occur"});
     }
-    const auth = await bcrypt.compare(password,umail.password);
-    if(!auth){
-        return res.json({status: false, message:"Password is incorrect"});
-    }
-    const token = createSecretToken(umail._id);
-    res.cookie("token", token, {
-        httpOnly: true,
-        secure: true
-    });
-    res.json({success: true ,message : "User is logged in", token});
 })
 
 //create post page athhorization
@@ -119,75 +123,102 @@ app.post("/addpost", userVerification, async(req, res) => {
 
 //home
 app.post('/home',async(req, res) => {
-    const posts = await Post.find({});
-    const user = await User.find({});
-    res.json({posts, user});
+    try {
+        const posts = await Post.find({});
+        const user = await User.find({});
+        res.json({success:true,posts, user});
+    } catch (error) {
+        res.json({success: false, message: "some error occur, please try again"});
+    }
 })
 
 //category
 app.post('/category',async(req, res) => {
-    const category = req.body.category;
-    const posts = await Post.find({});
-    const postarr = [];
-    posts.map((el) => {
-        if(el.dtype == category){
-            postarr.push(el)
-        }
-    })
-    console.log(postarr);
-    res.json({postarr});
+    try {
+        const category = req.body.category;
+        const posts = await Post.find({});
+        const postarr = [];
+        posts.map((el) => {
+            if(el.dtype == category){
+                postarr.push(el)
+            }
+        })
+        res.json({success:true, postarr});
+    } catch (error) {
+        res.json({success: false, message: "some error occur, please try again"});
+    }
 })
 
 //writer
 app.post("/writer/:id", async(req, res) => {
-    const {id} = req.params;
-    const user = await User.findById(id).populate("post");
-    res.json(user);
+    try {
+        const {id} = req.params;
+        const user = await User.findById(id).populate("post");
+        res.json({success:true, user});
+    } catch (error) {
+        res.json({success: false, message: "some error occur, please try again"});
+    }
 })
 
 //show
 app.get("/show/:id", async(req, res) => {
-    const {id} = req.params;
-    const data1 = await Post.findById(id);
-    let dataview = data1.view;
-    dataview = dataview + 1;
-    const data2 = await Post.findByIdAndUpdate(id, {view: dataview});
-    const data = await Post.findById(id).populate("review");
-    const user = await User.findOne({post: new mongoose.Types.ObjectId(id)})
-    res.json({data,user});
+    try {
+        const {id} = req.params;
+        const data1 = await Post.findById(id);
+        let dataview = data1.view;
+        dataview = dataview + 1;
+        const data2 = await Post.findByIdAndUpdate(id, {view: dataview});
+        const data = await Post.findById(id).populate("review");
+        const user = await User.findOne({post: new mongoose.Types.ObjectId(id)})
+        res.json({success: true, data,user});
+    } catch (error) {
+        res.json({success: false, message: "some error occur, please try again"});
+    }
 })
 
 //review 
 app.post("/review/:id",userVerification,async(req, res) => {
-    let {id} = req.params;
-    const review = req.body.review;
-    const user = req.data.email;
-    const data = {review,user};
-    console.log(data);
-    const postreview =await Post.findById(id)
-    const reviewdata = new Review(data);
-    console.log(reviewdata);
-    postreview.review.push(reviewdata);
-    await reviewdata.save();
-    await postreview.save();
-    const detail = await Post.findById(id).populate("review");
-    res.json(detail);
+    try {
+        let {id} = req.params;
+        const review = req.body.review;
+        const user = req.data.email;
+        const data = {review,user};
+        console.log(data);
+        const postreview =await Post.findById(id)
+        const reviewdata = new Review(data);
+        console.log(reviewdata);
+        postreview.review.push(reviewdata);
+        await reviewdata.save();
+        await postreview.save();
+        const detail = await Post.findById(id).populate("review");
+        res.json(detail);
+    } catch (error) {
+        res.json({success: false, message: "some error occur, please try again"});
+    }
 })
 
 //follower
 app.post("/follower",userVerification,async(req,res) => {
-    const email = req.body.user.email;
-    console.log(email);
-    const data1 = await User.findOne({email});
-    let datafollow = data1.follower;
-    datafollow = datafollow + 1;
-    const data2 = await User.findOneAndUpdate({email}, {follower: datafollow});
-    res.json(data2)
+    try {
+        const email = req.body.user.email;
+        console.log(email);
+        const data1 = await User.findOne({email});
+        let datafollow = data1.follower;
+        datafollow = datafollow + 1;
+        const data2 = await User.findOneAndUpdate({email}, {follower: datafollow});
+        res.json(data2)
+    } catch (error) {
+        res.json({success: false, message: "some error occur, please try again"});
+    }
 })
 
 //account
 app.post("/account",userVerification,async(req,res) => {
-    const email = req.data.email;
-    const use = await User.findOne({email}).populate("post");
-    res.json(use);
+    try {
+        const email = req.data.email;
+        const use = await User.findOne({email}).populate("post");
+        res.json(use);
+    } catch (error) {
+        res.json({success: false, message: "some error occur, please try again"});
+    }
 })

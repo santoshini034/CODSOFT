@@ -4,18 +4,44 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar'
 import Cards from "../components/Cards"
 import axios from 'axios'
-
+import { ToastContainer, toast } from 'react-toastify'
 const Writer = () => {
     //declaration
     const {id} = useParams();
     const [user, setUser] = useState({});
     const [post, setPost] = useState([]);
 
+
+    const handlerror = (message) => toast.error(message, {
+          position: 'top-right',
+          autoClose: 3000,
+          style: {
+            color: '#000',
+            padding: '10px',
+            borderRadius: '5px',
+          }
+        })
+        
+        const handlesuccess = (message) => toast.success(message, {
+          position: 'top-right',
+          autoClose: 3000,
+          style: {
+            color: '#000',
+            padding: '10px',
+            borderRadius: '5px',
+          }
+        })
+
+
     //useEffect
     useEffect(() => {
         axios.post(`http://localhost:8080/writer/${id}`).then((res) => {
-            setUser(res.data)
-            setPost(res.data.post)
+            if (res.data.success == true) {
+              setUser(res.data)
+              setPost(res.data.post)
+            } else {
+              handlerror(res.data.message);
+            }
         })
     },[])
 
@@ -33,7 +59,8 @@ const Writer = () => {
             })
           }
         </div>  
-        </div>    
+        </div>   
+         <ToastContainer/>   
     </div>
   )
 }

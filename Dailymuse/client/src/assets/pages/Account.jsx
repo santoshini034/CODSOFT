@@ -2,17 +2,47 @@ import React from 'react'
 import { useEffect,useState } from 'react'
 import axios from 'axios'
 import Navbar from "../components/Navbar"
+import { ToastContainer, toast } from 'react-toastify'
 
 const Account = () => {
   const [user,setUser] = useState({});
   const [post,setPost] = useState([]);
 
 
+  const handlerror = (message) => toast.error(message, {
+        position: 'top-right',
+        autoClose: 3000,
+        style: {
+          color: '#000',
+          padding: '10px',
+          borderRadius: '5px',
+        }
+      })
+      
+      const handlesuccess = (message) => toast.success(message, {
+        position: 'top-right',
+        autoClose: 3000,
+        style: {
+          color: '#000',
+          padding: '10px',
+          borderRadius: '5px',
+        }
+      })
+
     useEffect(() => {
-      let auth = localStorage.getItem("authToken");
+      let auth = localStorage.getItem('authToken');
       axios.post("http://localhost:8080/account",{auth}).then((res) => {
-          setUser(res.data);
-          setPost(res.data.post);
+          if (res.data.success == true) {
+            setUser(res.data);
+            setPost(res.data.post);
+          }else{
+            handlerror(res.error.message)
+                if (res.data.hessage  == "Token not found" || "User not found") {
+                  setTimeout(() => {
+                    navigate('/login')
+                  }, 3000);
+                }
+          }
       })
     },[])
   return (
@@ -50,6 +80,7 @@ const Account = () => {
             </div>
           </div>
         </div>
+        <ToastContainer/> 
       </div>
     </div>
   )

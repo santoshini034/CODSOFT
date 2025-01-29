@@ -4,27 +4,56 @@ import axios from 'axios';
 import Navbar from "../components/Navbar" 
 import Cards from "../components/Cards"
 import Popular from "../components/Popular"
+import { ToastContainer, toast } from 'react-toastify'
 
 const Home = () => {
 
   //declaration
   const [data,setData] = useState([]);
   const [user,setUser] = useState([]);
-  const [category,setCategory] = useState([]);
 
+//handle error
+const handlerror = (message) => toast.error(message, {
+  position: 'top-right',
+  autoClose: 3000,
+  style: {
+    color: '#000',
+    padding: '10px',
+    borderRadius: '5px',
+  }
+  })
+
+  //handle success
+  const handlesuccess = (message) => toast.success(message, {
+    position: 'top-right',
+    autoClose: 3000,
+    style: {
+      color: '#000',
+      padding: '10px',
+      borderRadius: '5px',
+    }
+    })
 
   //useeffect
   useEffect(() => {
     axios.post("http://localhost:8080/home").then((res) => {
-      setData(res.data.posts);
-      setUser(res.data.user);
+      if (res.data.success == true) {
+        setData(res.data.posts);
+        setUser(res.data.user);
+      } else {
+        handlerror(res.data.message)
+      }
     })
   },[])
 
   //categories
   const cate = (category) => {
     axios.post("http://localhost:8080/category",{category}).then((res) => {
-      setData(res.data.postarr);
+      if (res.data.sucess == true) {
+        setData(res.data.postarr);
+      } else {
+        handlerror(res.data.message)
+      }
     })
   }
 
@@ -74,6 +103,7 @@ const Home = () => {
           </div>
         </div>
       </div> 
+      <ToastContainer/>     
       </div>
   </div>
   )
