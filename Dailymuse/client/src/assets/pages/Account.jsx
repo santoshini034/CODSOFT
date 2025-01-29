@@ -31,7 +31,7 @@ const Account = () => {
 
     useEffect(() => {
       let auth = localStorage.getItem('authToken');
-      axios.post("http://localhost:8080/account",{auth}).then((res) => {
+      axios.post("https://codsoft-1-mxid.onrender.com/account",{auth}).then((res) => {
           if (res.data.success == true) {
             setUser(res.data.use);
             setPost(res.data.use.post);
