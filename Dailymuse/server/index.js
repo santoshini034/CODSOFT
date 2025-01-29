@@ -135,15 +135,9 @@ app.post('/home',async(req, res) => {
 //category
 app.post('/category',async(req, res) => {
     try {
-        const category = req.body.category;
-        const posts = await Post.find({});
-        const postarr = [];
-        posts.map((el) => {
-            if(el.dtype == category){
-                postarr.push(el)
-            }
-        })
-        res.json({success:true, postarr});
+        const dtype = req.body.category;
+        const posts = await Post.find({dtype});
+        res.json({success:true, posts});
     } catch (error) {
         res.json({success: false, message: "some error occur, please try again"});
     }
@@ -206,7 +200,7 @@ app.post("/follower",userVerification,async(req,res) => {
         let datafollow = data1.follower;
         datafollow = datafollow + 1;
         const data2 = await User.findOneAndUpdate({email}, {follower: datafollow});
-        res.json(data2)
+        res.json({success: true,data2})
     } catch (error) {
         res.json({success: false, message: "some error occur, please try again"});
     }
@@ -217,7 +211,7 @@ app.post("/account",userVerification,async(req,res) => {
     try {
         const email = req.data.email;
         const use = await User.findOne({email}).populate("post");
-        res.json(use);
+        res.json({success:true, use});
     } catch (error) {
         res.json({success: false, message: "some error occur, please try again"});
     }

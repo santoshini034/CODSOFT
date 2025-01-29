@@ -49,8 +49,9 @@ const handlerror = (message) => toast.error(message, {
   //categories
   const cate = (category) => {
     axios.post("http://localhost:8080/category",{category}).then((res) => {
-      if (res.data.sucess == true) {
-        setData(res.data.postarr);
+      if (res.data.success == true) {
+        console.log(res.data.posts);
+        setData(res.data.posts);
       } else {
         handlerror(res.data.message)
       }

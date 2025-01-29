@@ -39,7 +39,7 @@ const Show = () => {
     //useeffect
     useEffect(() => {
         axios.get(`http://localhost:8080/show/${id}`).then((res) => {
-            if (condition) {
+            if (res.data.success == true) {
               setData(res.data.data);
               setSreview(res.data.data.review);
               setUser(res.data.user);
@@ -94,7 +94,8 @@ const Show = () => {
 
         axios.post(`http://localhost:8080/follower`, {auth,user}).then((res) => {
           if (res.data.success == true) {
-            setUser(res.data);
+            console.log(res)
+            setUser(res.data.data2);
           }else{
             handlerror(res.error.message)
                 if (res.data.hessage  == "Token not found" || "User not found") {

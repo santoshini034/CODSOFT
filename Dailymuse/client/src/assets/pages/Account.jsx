@@ -33,8 +33,8 @@ const Account = () => {
       let auth = localStorage.getItem('authToken');
       axios.post("http://localhost:8080/account",{auth}).then((res) => {
           if (res.data.success == true) {
-            setUser(res.data);
-            setPost(res.data.post);
+            setUser(res.data.use);
+            setPost(res.data.use.post);
           }else{
             handlerror(res.error.message)
                 if (res.data.hessage  == "Token not found" || "User not found") {

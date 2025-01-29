@@ -36,9 +36,10 @@ const Writer = () => {
     //useEffect
     useEffect(() => {
         axios.post(`http://localhost:8080/writer/${id}`).then((res) => {
+          console.log(res);
             if (res.data.success == true) {
-              setUser(res.data)
-              setPost(res.data.post)
+              setUser(res.data.user)
+              setPost(res.data.user.post)
             } else {
               handlerror(res.data.message);
             }
