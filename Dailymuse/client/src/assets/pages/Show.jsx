@@ -38,7 +38,7 @@ const Show = () => {
 
     //useeffect
     useEffect(() => {
-        axios.get(`https://codsoft-1-mxid.onrender.com/show/${id}`).then((res) => {
+        axios.get(`https://codsoft-1-backend.onrender.com/show/${id}`).then((res) => {
             if (res.data.success == true) {
               setData(res.data.data);
               setSreview(res.data.data.review);
