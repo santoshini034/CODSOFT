@@ -35,7 +35,7 @@ const Writer = () => {
 
     //useEffect
     useEffect(() => {
-        axios.post(`https://codsoft-1-mxid.onrender.com/writer/${id}`).then((res) => {
+        axios.post(`https://codsoft-1-backend.onrender.com/writer/${id}`).then((res) => {
           console.log(res);
             if (res.data.success == true) {
               setUser(res.data.user)
