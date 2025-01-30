@@ -42,7 +42,7 @@ const Login = () => {
           handlerror(message);
         }
         else{
-            axios.post("http://localhost:8080/login", {email, password}).then((res) => {
+            axios.post("https://codsoft-1-mxid.onrender.com/login", {email, password}).then((res) => {
                 if(res.data.success == true){
                     localStorage.setItem('authToken', res.data.token);
                     handlesuccess(res.data.message);
