@@ -42,7 +42,7 @@ const Signin = () => {
           const message = "Enter valid credentials";
             handlerror(message);
         }else{
-            axios.post("https://codsoft-1-mxid.onrender.com/signin", {firstname, lastname, email, password, photo}).then((res) => {
+            axios.post("https://codsoft-1-backend.onrender.com/signin", {firstname, lastname, email, password, photo}).then((res) => {
                 if(res.data.success == true){
                     localStorage.setItem('authToken', res.data.token);
                    handlesuccess(res.data.message);
